@@ -28,16 +28,15 @@ export default function AboutPage() {
   const { data: userProfile } = useDoc(userDocRef);
 
   useEffect(() => {
-    if (userProfile?.preferredLanguage && languageFiles[userProfile.preferredLanguage as keyof typeof languageFiles]) {
-      setTranslations(
-  languageFiles[
-    userProfile.preferredLanguage as keyof typeof languageFiles
-  ]
-);
-    } else {
-      setTranslations({});
-    }
-  }, [userProfile]);
+  const preferredLanguage =
+    userProfile?.preferredLanguage as keyof typeof languageFiles;
+
+  if (preferredLanguage && languageFiles[preferredLanguage]) {
+    setTranslations(languageFiles[preferredLanguage]);
+  } else {
+    setTranslations({});
+  }
+}, [userProfile]);
 
   const t = (key: string, fallback: string) => translations[key] || fallback;
 
