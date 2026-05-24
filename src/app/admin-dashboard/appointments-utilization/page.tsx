@@ -50,7 +50,7 @@ export default function AppointmentsUtilizationPage() {
                 value={cancellationRate}
                 icon={TrendingDown}
                 description="Percentage of canceled appointments"
-                isLoading={isLoadingAppointments}
+            
               />
             </Suspense>
           </div>
