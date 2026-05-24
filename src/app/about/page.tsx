@@ -18,7 +18,7 @@ const languageFiles = { hi, bn, ta, te, mr };
 export default function AboutPage() {
   const { user } = useUser();
   const firestore = useFirestore();
-  const [translations, setTranslations] = useState({});
+  const [translations, setTranslations] = useState<Record<string, string>>({});
 
   const userDocRef = useMemoFirebase(() => {
     if (!user || !firestore) return null;
@@ -28,8 +28,12 @@ export default function AboutPage() {
   const { data: userProfile } = useDoc(userDocRef);
 
   useEffect(() => {
-    if (userProfile?.preferredLanguage && languageFiles[userProfile.preferredLanguage]) {
-      setTranslations(languageFiles[userProfile.preferredLanguage]);
+    if (userProfile?.preferredLanguage && languageFiles[userProfile.preferredLanguage as keyof typeof languageFiles]) {
+      setTranslations(
+  languageFiles[
+    userProfile.preferredLanguage as keyof typeof languageFiles
+  ]
+);
     } else {
       setTranslations({});
     }
